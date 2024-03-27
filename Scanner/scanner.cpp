@@ -56,45 +56,45 @@ bool word(string s) {
         else if (state == 4 && ((s[charpos] == 'a') || (s[charpos] == 'e') || (s[charpos] == 'i') || (s[charpos] == 'o') || (s[charpos] == 'u') || (s[charpos] == 'y') || (s[charpos] == 'E') || (s[charpos] == 'I')))
             state = 1;
         else if (state == 5 && ((s[charpos] == 'a') || (s[charpos] == 'e') || (s[charpos] == 'i') || (s[charpos] == 'o') || (s[charpos] == 'u') || (s[charpos] == 'E') || (s[charpos] == 'I')))
-                      state = 1;
+            state = 1;
         else if (state == 5 && s[charpos] == 'h')
-                      state = 4;
+            state = 4;
         else if (state == 6 && s[charpos] == 'h')
-                      state = 4;
+            state = 4;
         else if (state == 7 && ((s[charpos] == 'a') || (s[charpos] == 'e') || (s[charpos] == 'i') || (s[charpos] == 'o') || (s[charpos] == 'u') || (s[charpos] == 'E') || (s[charpos] == 'I')))
-                      state = 1;
+            state = 1;
         else if (state == 7 && ((s[charpos] == 'b') || (s[charpos] == 'g') || (s[charpos] == 'm') || (s[charpos] == 'p') || (s[charpos] == 'r') || (s[charpos] == 'n') || (s[charpos] == 'h') || (s[charpos] == 'k')))
-                      state = 3;
+            state = 3;
         else if (state == 7 && ((s[charpos] == 'd') || (s[charpos] == 'w') || (s[charpos] == 'z') || (s[charpos] == 'j') || (s[charpos] == 'y')))
-                      state = 4;
+            state = 4;
         else if (state == 7 && s[charpos] == 's')
-                      state = 5;
+            state = 5;
         else if (state == 7 && s[charpos] == 't')
-                      state = 2;
+            state = 2;
         else if (state == 7 && s[charpos] == 'c')
-                      state = 6;
+            state = 6;
         else {
-                      return false;
+            return false;
         }
-                  charpos++;
-              }
-              return (state == 0 || state == 1 || state == 7);
-          }
+        charpos++;
+    }
+    return (state == 0 || state == 1 || state == 7);
+    }
 
 
 // PERIOD DFA 
 // Done by: **
 bool period(string s) {
-              int state = 0;
-              int charpos = 0;
-              while (s[charpos] != '\0') {  // while there is a character in the string
-                  if (state == 0 && s[charpos] == '.')  // if we are in the start state and we read a period
-                      state = 1;  // go to the final state
-                  else
-                      return false; // if we read any other character, it's not a period
-                  charpos++;
-              }
-              return (state == 1);  // return true if we are in the final state
+    int state = 0;
+    int charpos = 0;
+    while (s[charpos] != '\0') {  // while there is a character in the string
+        if (state == 0 && s[charpos] == '.')  // if we are in the start state and we read a period
+            state = 1;  // go to the final state
+        else
+            return false; // if we read any other character, it's not a period
+        charpos++;
+    }
+return (state == 1);  // return true if we are in the final state
 }
 
 
@@ -103,30 +103,29 @@ bool period(string s) {
 // TABLES Done by: **
 
 // ** Update the tokentype to be WORD1, WORD2, PERIOD, ERROR, EOFM, etc.
- enum tokentype { ERROR, EOFM, PERIOD, VERB, VERBNEG, VERBPAST, VERBPASTNEG, IS, WAS, OBJECT, SUBJECT, DESTINATION, PRONOUN, CONNECTOR, WORD1, WORD2 };
+    enum tokentype { ERROR, EOFM, PERIOD, VERB, VERBNEG, VERBPAST, VERBPASTNEG, IS, WAS, OBJECT, SUBJECT, DESTINATION, PRONOUN, CONNECTOR, WORD1, WORD2 };
+    string tokenName[NUMTOKENS] = { "ERROR", "EOFM", "PERIOD", "VERB", "VERBNEG", "VERBPAST", "VERBPASTNEG", "IS", "WAS", "OBJECT", "SUBJECT", "DESTINATION", "PRONOUN", "CONNECTOR", "WORD1", "WORD2" };
 
-          string tokenName[NUMTOKENS] = { "ERROR", "EOFM", "PERIOD", "VERB", "VERBNEG", "VERBPAST", "VERBPASTNEG", "IS", "WAS", "OBJECT", "SUBJECT", "DESTINATION", "PRONOUN", "CONNECTOR", "WORD1", "WORD2" };
-
-          string reservedWords[ROWS][COLS] = {
-              {"masu", "VERB"},
-              {"masen", "VERBNNEG"},
-              {"mashita", "VERBPAST"},
-              {"masendeshita", "VERBPASTNEG"},
-              {"desu", "IS"},
-              {"deshita", "WAS"},
-              {"o", "OBJECT"},
-              {"wa", "SUBJECT"},
-              {"ni", "DESTINATION"},
-              {"watashi", "PRONOUN"},
-              {"anata", "PRONOUN"},
-              {"kare", "PRONOUN"},
-              {"kanojo", "PRONOUN"},
-              {"sore", "PRONOUN"},
-              {"mata", "CONNECTOR"},
-              {"soshite", "CONNECTOR"},
-              {"shikashi", "CONNECTOR"},
-              {"dakara", "CONNECTOR"},
-              {"eofm", "EOFM"}
+    string reservedWords[ROWS][COLS] = {
+        {"masu", "VERB"},
+        {"masen", "VERBNNEG"},
+        {"mashita", "VERBPAST"},
+        {"masendeshita", "VERBPASTNEG"},
+        {"desu", "IS"},
+        {"deshita", "WAS"},
+        {"o", "OBJECT"},
+        {"wa", "SUBJECT"},
+        {"ni", "DESTINATION"},
+        {"watashi", "PRONOUN"},
+        {"anata", "PRONOUN"},
+        {"kare", "PRONOUN"},
+        {"kanojo", "PRONOUN"},
+        {"sore", "PRONOUN"},
+        {"mata", "CONNECTOR"},
+        {"soshite", "CONNECTOR"},
+        {"shikashi", "CONNECTOR"},
+        {"dakara", "CONNECTOR"},
+        {"eofm", "EOFM"}
           };
 
 // ** For the display names of tokens - must be in the same order as the tokentype.
@@ -141,36 +140,36 @@ string tokenName[30] = { };
 
 ifstream fin;  // global stream for reading from the input file
  int scanner(tokentype& tt, string& w) {
-              fin >> w;
-              if (w == "eofm") {
-                  tt = EOFM;
-                  return 0;
-              }
-              if (!word(w)) {
-                  if (period(w)) {
-                      tt = PERIOD;
-                      return 0;
-                  } else {
-                      cout << "LEXICAL ERROR: Invalid string passes no DFA token criteria" << endl;
-                      tt = ERROR;
-                      return 1;
-                  }
-              }
-              for (int i = 0; i < ROWS; i++) {
-                  if (w == reservedWords[i][0]) {
-                      for (int j = 0; j < NUMTOKENS; j++) {
-                          if (reservedWords[i][1] == tokenName[j]) {
-                              tt = (tokentype)j;
-                              return 0;
-                          }
-                      }
-                  }
-              }
-              if (w[w.size() - 1] == 'E' || w[w.size() - 1] == 'I')
-                  tt = WORD2;
-              else
-                  tt = WORD1;
-              return 0;
+    fin >> w;
+    if (w == "eofm") {
+        tt = EOFM;
+        return 0;
+    }
+    if (!word(w)) {
+        if (period(w)) {
+            tt = PERIOD;
+            return 0;
+        } else {
+            cout << "LEXICAL ERROR: Invalid string passes no DFA token criteria" << endl;
+            tt = ERROR;
+            return 1;
+            }
+        }
+        for (int i = 0; i < ROWS; i++) {
+            if (w == reservedWords[i][0]) {
+                for (int j = 0; j < NUMTOKENS; j++) {
+                    if (reservedWords[i][1] == tokenName[j]) {
+                        tt = (tokentype)j;
+                        return 0;
+                        }
+                    }
+                }
+            }
+            if (w[w.size() - 1] == 'E' || w[w.size() - 1] == 'I')
+                tt = WORD2;
+                else
+                tt = WORD1;
+                return 0;
           }
 
 // Scanner processes only one word each time it is called
